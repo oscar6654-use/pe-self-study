@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>身體診察技巧・自學講義｜國防醫學院・三軍總醫院</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EEF2F0;
+    --paper-2:#E4EAE6;
+    --ink:#1D2B28;
+    --ink-soft:#4A5B57;
+    --line:#C7D2CC;
+    --teal:#2F6F68;
+    --teal-deep:#1F4A45;
+    --teal-pale:#E4EEEC;
+    --card:#FBFCFA;
+
+    --c-chest:#C97B4A;
+    --c-neuro:#8B5C7A;
+    --c-head:#5C7A99;
+    --c-trunk:#7A8B69;
+    --c-pelvic:#B08B3D;
+    --c-systemic:#5A6B7A;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Noto Sans TC",sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--teal);color:#fff;}
+
+  .shell{display:grid; grid-template-columns:300px 1fr; min-height:100vh;}
+  @media (max-width:900px){
+    .shell{grid-template-columns:1fr;}
+    .sidebar{position:relative; top:auto; height:auto; max-height:74px; overflow:hidden; transition:max-height .25s ease; padding-bottom:0;}
+    .sidebar.nav-open{max-height:80vh; overflow-y:auto; padding-bottom:20px;}
+    .brand{position:relative; padding-right:56px;}
+    .nav-toggle{display:flex;}
+  }
+
+  .nav-toggle{
+    display:none; position:absolute; top:24px; right:20px;
+    width:36px; height:36px; border-radius:9px; background:rgba(255,255,255,.12);
+    border:none; color:#fff; align-items:center; justify-content:center; cursor:pointer;
+  }
+  .nav-toggle svg{width:16px; height:16px; transition:.2s;}
+  .sidebar.nav-open .nav-toggle svg{transform:rotate(180deg);}
+
+  .sidebar{
+    background:var(--teal-deep); color:#EAF1EE;
+    padding:28px 0 40px; position:sticky; top:0; height:100vh;
+    overflow-y:auto; border-right:1px solid rgba(0,0,0,.15);
+  }
+  .brand{padding:0 22px 20px; border-bottom:1px solid rgba(255,255,255,.12); margin-bottom:8px;}
+  .brand .eyebrow{font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.14em; color:#9FC2BC; text-transform:uppercase;}
+  .brand h1{font-family:"Noto Serif TC",serif; font-size:21px; line-height:1.4; margin:6px 0 4px; font-weight:700;}
+  .brand p{font-size:12px; color:#B9CFC9; margin:0; line-height:1.6;}
+  .cover-btn{display:block; margin:16px 22px 4px; padding:9px 12px; border:1px solid rgba(255,255,255,.25); border-radius:6px; color:#EAF1EE; font-size:13px; text-align:center; cursor:pointer; background:transparent; transition:.15s;}
+  .cover-btn:hover{background:rgba(255,255,255,.08);}
+
+  .cat-group{margin-top:14px;}
+  .cat-label{display:flex; align-items:center; gap:8px; padding:10px 22px 6px; font-size:11.5px; letter-spacing:.08em; color:#B9CFC9;}
+  .cat-swatch{width:9px;height:9px;border-radius:2px;flex:none;}
+
+  .station-btn{
+    display:flex; align-items:baseline; gap:10px; width:100%; text-align:left;
+    background:transparent; border:none; border-left:3px solid transparent; color:#D6E6E1;
+    padding:9px 20px 9px 19px; cursor:pointer; font-size:13.5px; line-height:1.4; transition:.12s;
+  }
+  .station-btn .code{font-family:"JetBrains Mono",monospace; font-size:11px; color:#8FB6AF; flex:none; width:34px;}
+  .station-btn:hover{background:rgba(255,255,255,.06); color:#fff;}
+  .station-btn.active{background:rgba(255,255,255,.1); color:#fff; font-weight:700;}
+
+  main{padding:44px clamp(20px,4vw,64px) 90px; max-width:940px;}
+
+  .cover{display:flex; flex-direction:column; justify-content:center; min-height:78vh;}
+  .cover .kicker{font-family:"JetBrains Mono",monospace; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--teal); margin-bottom:18px;}
+  .cover h1{font-family:"Noto Serif TC",serif; font-weight:900; font-size:clamp(32px,4.6vw,52px); line-height:1.32; margin:0 0 22px; max-width:16ch;}
+  .cover .lede{font-size:16.5px; color:var(--ink-soft); line-height:1.9; max-width:60ch; margin-bottom:22px;}
+  .cover-note{background:var(--card); border:1px solid var(--line); border-left:4px solid var(--teal); border-radius:0 10px 10px 0; padding:16px 20px; font-size:14px; line-height:1.85; max-width:60ch; color:var(--ink-soft); margin-bottom:30px;}
+  .cover-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px; margin-top:6px;}
+  .cover-card{background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px 18px;}
+  .cover-card .num{font-family:"JetBrains Mono",monospace; font-size:22px; font-weight:700; color:var(--teal);}
+  .cover-card .lbl{font-size:12.5px; color:var(--ink-soft); margin-top:2px;}
+
+  .badge-row{display:flex; align-items:center; gap:10px; margin-bottom:16px; flex-wrap:wrap;}
+  .code-badge{font-family:"JetBrains Mono",monospace; font-weight:700; font-size:12.5px; letter-spacing:.05em; background:var(--teal-pale); color:var(--teal-deep); padding:5px 12px; border-radius:20px;}
+  .dept-tag{font-size:12.5px; color:#fff; padding:4px 12px; border-radius:20px; font-weight:500;}
+  .level-tag{font-size:12px; color:var(--ink-soft); border:1px solid var(--line); padding:3px 10px; border-radius:20px;}
+
+  h2.station-title{font-family:"Noto Serif TC",serif; font-size:clamp(26px,3.2vw,34px); font-weight:900; margin:0 0 6px; line-height:1.32;}
+  .station-meta{font-size:13.5px; color:var(--ink-soft); margin-bottom:18px;}
+  .overview{font-size:15.5px; line-height:1.95; color:var(--ink); background:var(--card); border:1px solid var(--line); border-radius:12px; padding:20px 24px; margin-bottom:34px;}
+  .overview b{color:var(--teal-deep);}
+
+  section.block{margin-bottom:38px;}
+  .block-head{display:flex; align-items:center; gap:10px; margin-bottom:14px;}
+  .block-head .idx{font-family:"JetBrains Mono",monospace; font-size:12px; color:#fff; background:var(--teal); width:24px;height:24px; border-radius:6px; display:flex;align-items:center;justify-content:center; flex:none;}
+  .block-head h3{font-family:"Noto Serif TC",serif; font-size:19px; font-weight:700; margin:0;}
+
+  .narr{font-size:15px; line-height:2; color:var(--ink);}
+  .narr p{margin:0 0 14px;}
+  .narr b{color:var(--teal-deep);}
+  .narr .sub{font-family:"Noto Serif TC",serif; font-weight:700; font-size:15.5px; color:var(--teal-deep); display:block; margin:22px 0 8px;}
+  .narr .sub:first-child{margin-top:0;}
+
+  .diagram-box{
+    background:var(--card); border:1px solid var(--line); border-radius:12px;
+    padding:18px 20px 14px; margin:18px 0 22px;
+  }
+  .diagram-box .dcap{font-size:12px; color:var(--ink-soft); margin-top:10px; text-align:center; line-height:1.7;}
+  .diagram-box svg{width:100%; height:auto; display:block;}
+
+  .compare{
+    display:grid; grid-template-columns:1fr 1fr; gap:1px;
+    background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:18px 0;
+  }
+  .compare > div{background:var(--card); padding:14px 18px;}
+  .compare .hd{font-weight:700; font-size:13px; padding:10px 18px; color:#fff;}
+  .compare .hd.n{background:var(--teal);}
+  .compare .hd.a{background:#B0644A;}
+  .compare ul{margin:0; padding-left:18px; font-size:13.5px; line-height:1.85; color:var(--ink-soft);}
+  @media (max-width:640px){ .compare{grid-template-columns:1fr;} }
+
+  .pearls{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px;}
+  .pearl{background:#F4F1E9; border:1px solid #E3DCC9; border-radius:10px; padding:16px 18px;}
+  .pearl h4{margin:0 0 8px; font-size:13.5px; font-weight:700; color:#8A6A2E;}
+  .pearl ul{margin:0; padding-left:18px; font-size:13.5px; line-height:1.75; color:var(--ink-soft);}
+
+  .examtip{background:#EDE7F1; border:1px dashed #B9A4C4; border-radius:10px; padding:16px 18px; font-size:13.5px; line-height:1.8; color:#4C3A57;}
+  .examtip b{color:#6B4A7C;}
+
+  /* expandable deep-dive box */
+  details.deep{
+    background:var(--teal-pale); border:1px solid #BFD8D3; border-radius:10px;
+    padding:2px 20px; margin:16px 0; overflow:hidden;
+  }
+  details.deep summary{
+    cursor:pointer; list-style:none; padding:14px 0; font-weight:700; color:var(--teal-deep);
+    font-size:14px; display:flex; align-items:center; gap:8px; user-select:none;
+  }
+  details.deep summary::-webkit-details-marker{display:none;}
+  details.deep summary::before{
+    content:'▸'; display:inline-block; font-size:12px; transition:.15s; color:var(--teal);
+  }
+  details.deep[open] summary::before{transform:rotate(90deg);}
+  details.deep .deep-body{padding:0 0 18px; font-size:13.5px; line-height:1.85; color:var(--ink-soft);}
+  details.deep .deep-body table{width:100%; border-collapse:collapse; margin-top:6px;}
+  details.deep .deep-body th, details.deep .deep-body td{border:1px solid #CFE0DB; padding:8px 10px; text-align:left; font-size:12.5px; vertical-align:top;}
+  details.deep .deep-body th{background:#DCEBE7; color:var(--teal-deep);}
+  details.deep .deep-body ul{margin:6px 0; padding-left:18px;}
+  details.deep .deep-body h5{margin:14px 0 4px; font-size:13px; color:var(--teal-deep);}
+  details.deep .deep-body h5:first-child{margin-top:0;}
+
+  .crosslink{
+    display:inline-flex; align-items:center; gap:6px; margin-top:6px;
+    font-size:12.5px; color:var(--teal-deep); background:#fff; border:1px solid var(--line);
+    padding:6px 12px; border-radius:20px; cursor:pointer; transition:.12s;
+  }
+  .crosslink:hover{border-color:var(--teal); background:var(--teal-pale);}
+  .crosslink::before{content:'↗'; font-size:12px;}
+
+  /* self-check (no scoring) */
+  .sc-wrap{background:var(--card); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
+  .sc-head{background:var(--teal-deep); color:#EAF1EE; padding:16px 20px; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;}
+  .sc-head h4{margin:0; font-size:15px; font-family:"Noto Serif TC",serif;}
+  .sc-progress-wrap{display:flex; align-items:center; gap:8px;}
+  .sc-bar{width:120px; height:6px; background:rgba(255,255,255,.2); border-radius:4px; overflow:hidden;}
+  .sc-bar-fill{height:100%; background:#7FD1B9; width:0%; transition:.25s;}
+  .sc-count{font-family:"JetBrains Mono",monospace; font-size:12px; color:#CFE6E0;}
+  .sc-body{padding:4px 0;}
+  .sc-item{display:flex; align-items:flex-start; gap:12px; padding:12px 20px; border-bottom:1px solid var(--paper-2); cursor:pointer;}
+  .sc-item:last-child{border-bottom:none;}
+  .sc-item:hover{background:var(--paper-2);}
+  .sc-box{
+    flex:none; width:20px; height:20px; border-radius:5px; border:1.5px solid var(--line);
+    margin-top:1px; display:flex; align-items:center; justify-content:center; background:#fff; transition:.12s;
+  }
+  .sc-box svg{width:12px; height:12px; opacity:0; transition:.12s;}
+  .sc-item.checked .sc-box{background:var(--teal); border-color:var(--teal);}
+  .sc-item.checked .sc-box svg{opacity:1;}
+  .sc-item.checked .sc-text{color:var(--ink-soft); text-decoration:line-through; text-decoration-color:var(--line);}
+  .sc-text{font-size:14px; line-height:1.65;}
+  .sc-foot{padding:12px 20px; background:var(--paper-2); display:flex; justify-content:flex-end;}
+  .reset-btn{font-size:12px; background:none; border:1px solid var(--line); color:var(--ink-soft); padding:6px 12px; border-radius:6px; cursor:pointer;}
+  .reset-btn:hover{border-color:var(--ink-soft);}
+
+  .nav-btns{display:flex; justify-content:space-between; margin-top:50px; border-top:1px solid var(--line); padding-top:24px; gap:12px;}
+  .nav-btns button{background:var(--card); border:1px solid var(--line); padding:12px 18px; border-radius:8px; cursor:pointer; font-size:13.5px; color:var(--ink); max-width:48%; text-align:left; line-height:1.5;}
+  .nav-btns button:hover{border-color:var(--teal);}
+  .nav-btns .lbl{display:block; font-size:11px; color:var(--ink-soft); margin-bottom:3px;}
+
+  @media print{ .sidebar,.cover-btn,.nav-btns{display:none;} .shell{display:block;} }
+</style>
+</head>
+<body>
+<div class="shell">
+  <nav class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="eyebrow">Self-Study Edition</div>
+      <h1>身體診察技巧<br>自學講義</h1>
+      <p>國防醫學院・三軍總醫院｜看懂全貌、練熟手感，不是為了應付評分</p>
+      <button class="nav-toggle" id="navToggle" onclick="toggleMobileNav()" aria-label="展開站別選單">
+        <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3,5 L8,11 L13,5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+    <button class="cover-btn" onclick="showCover()">封面／使用說明</button>
+    <div id="navGroups"></div>
+  </nav>
+  <main id="main"></main>
+</div>
+
+<script>
+/* ============ small SVG diagram library (schematic, original line-art) ============ */
+const DIAGRAMS = {
+
+resp_back: `<svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg">
+  <rect x="150" y="20" width="220" height="260" rx="60" fill="#F1F5F3" stroke="#C7D2CC"/>
+  <line x1="260" y1="20" x2="260" y2="280" stroke="#C7D2CC" stroke-dasharray="4 4"/>
+  ${[70,140,210].map((y,i)=>`
+    <circle cx="205" cy="${y+30}" r="10" fill="#2F6F68"/>
+    <circle cx="315" cy="${y+30}" r="10" fill="#2F6F68"/>
+    <text x="205" y="${y+34}" text-anchor="middle" font-size="11" fill="#fff" font-family="JetBrains Mono, monospace">${i+1}</text>
+    <text x="315" y="${y+34}" text-anchor="middle" font-size="11" fill="#fff" font-family="JetBrains Mono, monospace">${i+1}</text>
+  `).join('')}
+  <path d="M205,60 L315,60 L205,130 L315,130 L205,200 L315,200" fill="none" stroke="#C97B4A" stroke-width="2" stroke-dasharray="3 5"/>
+  <text x="260" y="295" text-anchor="middle" font-size="12" fill="#4A5B57" font-family="Noto Sans TC">由上到下、左右比較，呈「弓」字型走位</text>
+</svg>`,
+
+breath_patterns: `<svg viewBox="0 0 560 210" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans TC">
+  <text x="10" y="18" font-size="12" fill="#1D2B28" font-weight="700">正常</text>
+  <path d="M40,20 Q55,5 70,20 T100,20 T130,20 T160,20 T190,20 T220,20" fill="none" stroke="#2F6F68" stroke-width="2.5"/>
+  <text x="10" y="65" font-size="12" fill="#1D2B28" font-weight="700">Cheyne-Stokes</text>
+  <path d="M40,70 Q60,30 80,70 Q100,90 110,70 Q120,55 130,70 L165,70 Q180,30 200,70 Q220,90 230,70" fill="none" stroke="#C97B4A" stroke-width="2.5"/>
+  <text x="10" y="115" font-size="12" fill="#1D2B28" font-weight="700">Kussmaul</text>
+  <path d="M40,150 L55,90 L70,150 L85,90 L100,150 L115,90 L130,150 L145,90 L160,150 L175,90 L190,150" fill="none" stroke="#8B5C7A" stroke-width="2.5"/>
+  <text x="10" y="165" font-size="12" fill="#1D2B28" font-weight="700">Biot's（ataxic）</text>
+  <path d="M40,195 L48,175 L56,195 L64,180 L72,195 L100,195 L108,178 L116,195 L124,183 L132,195 L160,195 L168,175 L176,195" fill="none" stroke="#5A6B7A" stroke-width="2.5"/>
+</svg>`,
+
+cv_valves: `<svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans TC">
+  <path d="M150,40 C120,40 100,80 110,130 C115,180 150,240 210,270 C270,240 305,180 310,130 C320,80 300,40 270,40 C240,40 220,60 210,80 C200,60 180,40 150,40 Z" fill="#F1F5F3" stroke="#C7D2CC"/>
+  <circle cx="230" cy="70" r="8" fill="#2F6F68"/><text x="248" y="66" font-size="12" fill="#1D2B28">主動脈瓣區（2R）</text>
+  <circle cx="190" cy="70" r="8" fill="#2F6F68"/><text x="30" y="66" font-size="12" fill="#1D2B28">肺動脈瓣區（2L）</text>
+  <line x1="150" y1="70" x2="182" y2="70" stroke="#C7D2CC"/>
+  <circle cx="205" cy="160" r="8" fill="#2F6F68"/><text x="40" y="164" font-size="12" fill="#1D2B28">三尖瓣區（4-5L）</text>
+  <line x1="150" y1="160" x2="197" y2="160" stroke="#C7D2CC"/>
+  <circle cx="230" cy="220" r="8" fill="#2F6F68"/><text x="248" y="224" font-size="12" fill="#1D2B28">僧帽瓣區（心尖）</text>
+  <text x="210" y="290" text-anchor="middle" font-size="11" fill="#4A5B57">聽診順序：主動脈瓣→肺動脈瓣→三尖瓣→僧帽瓣</text>
+</svg>`,
+
+eye_scope: `<svg viewBox="0 0 480 200" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans TC">
+  <circle cx="80" cy="110" r="26" fill="#F1F5F3" stroke="#C7D2CC"/><circle cx="86" cy="110" r="8" fill="#2F6F68"/>
+  <text x="80" y="150" text-anchor="middle" font-size="11" fill="#4A5B57">檢查者眼睛</text>
+  <rect x="150" y="95" width="60" height="30" rx="6" fill="#C97B4A"/>
+  <text x="180" y="140" text-anchor="middle" font-size="11" fill="#4A5B57">直接眼底鏡</text>
+  <path d="M210,110 L260,110" stroke="#1D2B28" stroke-dasharray="3 4"/>
+  <text x="235" y="100" text-anchor="middle" font-size="11" fill="#4A5B57">2–3 公分</text>
+  <circle cx="300" cy="110" r="30" fill="#F1F5F3" stroke="#C7D2CC"/><circle cx="294" cy="110" r="9" fill="#5C7A99"/>
+  <text x="300" y="155" text-anchor="middle" font-size="11" fill="#4A5B57">病人眼睛</text>
+  <path d="M150,95 L300,80" stroke="#C7D2CC" stroke-dasharray="2 4"/>
+  <text x="400" y="80" text-anchor="middle" font-size="11" fill="#4A5B57">約 15° 外側切入</text>
+  <text x="240" y="185" text-anchor="middle" font-size="11.5" fill="#4A5B57">右眼看右眼・左眼看左眼；持鏡手尺側貼病人臉頰以維持穩定</text>
+</svg>`,
+
+ear_pull: `<svg viewBox="0 0 480 200" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans TC">
+  <text x="110" y="24" text-anchor="middle" font-size="12" font-weight="700" fill="#1D2B28">成人／較大兒童</text>
+  <ellipse cx="110" cy="110" rx="46" ry="66" fill="#F1F5F3" stroke="#C7D2CC"/>
+  <path d="M110,60 Q130,90 120,140" fill="none" stroke="#2F6F68" stroke-width="2"/>
+  <path d="M150,55 L175,30" stroke="#C97B4A" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="185" y="35" font-size="11" fill="#4A5B57">往後上方拉</text>
+
+  <text x="370" y="24" text-anchor="middle" font-size="12" font-weight="700" fill="#1D2B28">幼兒</text>
+  <ellipse cx="370" cy="110" rx="46" ry="66" fill="#F1F5F3" stroke="#C7D2CC"/>
+  <path d="M370,60 Q390,90 380,140" fill="none" stroke="#2F6F68" stroke-width="2"/>
+  <path d="M410,150 L430,185" stroke="#C97B4A" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="440" y="200" font-size="11" fill="#4A5B57" text-anchor="end">往下拉</text>
+  <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#C97B4A"/></marker></defs>
+</svg>`,
+
+tm_colors: `<svg viewBox="0 0 520 90" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans TC">
+  ${[["#C9B7A6","正常\\n珍珠灰"],["#B23A2E","發炎\\n紅色"],["#D9A441","中耳積水\\n琥珀色"],["#E8E4DA","積膿\\n蒼白"],["#5C7A99","積血\\n藍色"]].map((c,i)=>`
+    <circle cx="${55+i*105}" cy="30" r="24" fill="${c[0]}" stroke="#C7D2CC"/>
+    ${c[1].split('\\n').map((line,li)=>`<text x="${55+i*105}" y="${70+li*14}" text-anchor="middle" font-size="11" fill="#4A5B57">${line}</text>`).join('')}
+  `).join('')}
+</svg>`,
+
+neck_triangles: `<svg viewBox="0 0 380 240" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans TC">
+  <path d="M190,20 C140,20 110,60 110,110 L110,190 C110,210 260,210 260,190 L260,110 C260,60 240,20 190,20 Z" fill="#F1F5F3" stroke="#C7D2CC"/>
+  <path d="M150,60 L150,190 L210,190 Z" fill="#2F6F68" fill-opacity=".22" stroke="#2F6F68"/>
+  <text x="150" y="130" text-anchor="middle" font-size="11" fill="#1F4A45">頸前三角</text>
+  <path d="M150,60 L110,190 L150,190 Z" fill="#C97B4A" fill-opacity=".22" stroke="#C97B4A"/>
+  <text x="122" y="150" text-anchor="middle" font-size="11" fill="#7a4425">頸後三角</text>
+  <circle cx="185" cy="150" r="16" fill="#5C7A99" fill-opacity=".5" stroke="#5C7A99"/>
+  <text x="185" y="215" text-anchor="middle" font-size="11" fill="#4A5B57">甲狀腺約位於環狀軟骨下方、氣管兩側</text>
+</svg>`,
+
+throat_map: `<svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans TC">
+  <ellipse cx="200" cy="140" rx="150" ry="105" fill="#F8F3E9" stroke="#E3DCC9"/>
+  <ellipse cx="200" cy="200" rx="70" ry="22" fill="#D9A441" fill-opacity=".5"/><text x="200" y="205" text-anchor="middle" font-size="11">舌頭</text>
+  <ellipse cx="200" cy="100" rx="60" ry="18" fill="#B9CFC9" fill-opacity=".6"/><text x="200" y="104" text-anchor="middle" font-size="11">硬顎／軟顎</text>
+  <path d="M200,118 q0,20 0,32" stroke="#B23A2E" stroke-width="4" stroke-linecap="round"/><text x="230" y="130" font-size="11">懸壅垂</text>
+  <circle cx="110" cy="150" r="16" fill="#C97B4A" fill-opacity=".55"/><text x="80" y="180" font-size="11">扁桃腺</text>
+  <circle cx="290" cy="150" r="16" fill="#C97B4A" fill-opacity=".55"/><text x="300" y="180" font-size="11">扁桃腺</text>
+  <path d="M140,220 q60,25 120,0" stroke="#5C7A99" stroke-width="6" fill="none" stroke-linecap="round"/><text x="200" y="248" text-anchor="middle" font-size="11">後咽壁</text>
+</svg>`,
+
+breast_pattern: `<svg viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans TC">
+  <circle cx="160" cy="130" r="100" fill="#F8F3F0" stroke="#C7D2CC"/>
+  <line x1="60" y1="130" x2="260" y2="130" stroke="#C7D2CC" stroke-dasharray="3 4"/>
+  <line x1="160" y1="30" x2="160" y2="230" stroke="#C7D2CC" stroke-dasharray="3 4"/>
+  <path d="M160,130 m0,-14 a14,14 0 1,1 -0.1,0 M160,130 m0,-34 a34,34 0 1,1 -0.1,0 M160,130 m0,-56 a56,56 0 1,1 -0.1,0 M160,130 m0,-80 a80,80 0 1,1 -0.1,0" fill="none" stroke="#C97B4A" stroke-width="2"/>
+  <circle cx="160" cy="130" r="5" fill="#B23A2E"/>
+  <text x="160" y="252" text-anchor="middle" font-size="11" fill="#4A5B57">由乳頭開始，順時鐘環狀螺旋滑動至外側，範圍含鎖骨下、胸骨中線、肋骨下緣、腋下</text>
+</svg>`,
+
+abd_quad: `<svg viewBox="0 0 340 260" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans TC">
+  <rect x="50" y="30" width="240" height="200" rx="40" fill="#F1F5F3" stroke="#C7D2CC"/>
+  <line x1="170" y1="30" x2="170" y2="230" stroke="#C7D2CC" stroke-dasharray="4 4"/>
+  <line x1="50" y1="130" x2="290" y2="130" stroke="#C7D2CC" stroke-dasharray="4 4"/>
+  <text x="105" y="85" text-anchor="middle" font-size="12" fill="#1D2B28" font-weight="700">RUQ</text><text x="105" y="102" text-anchor="middle" font-size="10" fill="#4A5B57">肝臟</text>
+  <text x="235" y="85" text-anchor="middle" font-size="12" fill="#1D2B28" font-weight="700">LUQ</text><text x="235" y="102" text-anchor="middle" font-size="10" fill="#4A5B57">脾臟</text>
+  <text x="105" y="180" text-anchor="middle" font-size="12" fill="#1D2B28" font-weight="700">RLQ</text>
+  <text x="235" y="180" text-anchor="middle" font-size="12" fill="#1D2B28" font-weight="700">LLQ</text>
+  <text x="170" y="250" text-anchor="middle" font-size="12" fill="#2F6F68" font-weight="700">視 → 聽 → 扣 → 觸（最痛處最後摸）</text>
+</svg>`,
+
+inguinal_map: `<svg viewBox="0 0 420 260" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans TC">
+  <line x1="50" y1="90" x2="360" y2="130" stroke="#2F6F68" stroke-width="3"/>
+  <text x="200" y="75" text-anchor="middle" font-size="11" fill="#1F4A45">腹股溝韌帶（Inguinal ligament）</text>
+  <circle cx="70" cy="82" r="6" fill="#5C7A99"/><text x="20" y="65" font-size="10.5">髂骨前上嵴</text>
+  <circle cx="100" cy="100" r="7" fill="#C97B4A"/><text x="60" y="130" font-size="10.5">恥骨結合</text>
+  <circle cx="300" cy="115" r="9" fill="#B23A2E"/><text x="270" y="140" font-size="10.5">外環（External ring）</text>
+  <rect x="140" y="95" width="120" height="16" fill="#2F6F68" fill-opacity=".18" stroke="#2F6F68" stroke-dasharray="3 3"/>
+  <text x="200" y="95" text-anchor="middle" font-size="10" fill="#1F4A45">腹股溝管（Inguinal canal）</text>
+  <circle cx="330" cy="160" r="6" fill="#8B5C7A"/><text x="345" y="164" font-size="10.5">股靜脈</text>
+  <circle cx="330" cy="180" r="6" fill="#B23A2E"/><text x="345" y="184" font-size="10.5">股動脈</text>
+  <circle cx="330" cy="200" r="6" fill="#D9A441"/><text x="345" y="204" font-size="10.5">股管（Femoral canal）</text>
+  <path d="M300,115 q-50,20 -90,-5" stroke="#5C7A99" stroke-width="2.5" fill="none" marker-end="url(#arrow2)"/>
+  <text x="210" y="200" text-anchor="middle" font-size="11" fill="#4A5B57">食指沿精索方向伸入外環，請病人咳嗽／憋氣，</text>
+  <text x="210" y="216" text-anchor="middle" font-size="11" fill="#4A5B57">感受有無突出物推擠指腹</text>
+  <defs><marker id="arrow2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#5C7A99"/></marker></defs>
+</svg>`,
+
+male_gu_schema: `<svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans TC">
+  <rect x="120" y="20" width="80" height="60" rx="10" fill="#F1F5F3" stroke="#C7D2CC"/><text x="160" y="55" text-anchor="middle" font-size="11">陰莖／龜頭／尿道口</text>
+  <line x1="160" y1="80" x2="160" y2="105" stroke="#C7D2CC"/>
+  <ellipse cx="130" cy="140" rx="34" ry="44" fill="#F1F5F3" stroke="#C7D2CC"/><text x="130" y="144" text-anchor="middle" font-size="10">睪丸</text>
+  <ellipse cx="190" cy="140" rx="34" ry="44" fill="#F1F5F3" stroke="#C7D2CC"/><text x="190" y="144" text-anchor="middle" font-size="10">睪丸</text>
+  <path d="M110,105 q20,10 20,25" stroke="#2F6F68" stroke-width="2" fill="none"/><text x="90" y="100" font-size="10">副睪</text>
+  <path d="M210,105 q-20,10 -20,25" stroke="#2F6F68" stroke-width="2" fill="none"/><text x="215" y="100" font-size="10">副睪</text>
+  <path d="M130,96 q0,-16 30,-16 q30,0 30,16" stroke="#C97B4A" stroke-width="2" fill="none"/><text x="160" y="200" text-anchor="middle" font-size="10" fill="#4A5B57">輸精管走向鼠蹊部</text>
+</svg>`,
+
+dre_clock: `<svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans TC">
+  <circle cx="150" cy="150" r="110" fill="#F1F5F3" stroke="#C7D2CC"/>
+  <circle cx="150" cy="150" r="30" fill="#2F6F68" fill-opacity=".25" stroke="#2F6F68"/>
+  ${[12,3,6,9].map(h=>{
+    const ang=(h/12)*2*Math.PI - Math.PI/2;
+    const x=150+95*Math.cos(ang), y=150+95*Math.sin(ang);
+    return `<text x="${x}" y="${y+4}" text-anchor="middle" font-size="12" fill="#1D2B28">${h===12?'12（前列腺方向）':h+'點'}</text>`;
+  }).join('')}
+  <text x="150" y="290" text-anchor="middle" font-size="11" fill="#4A5B57">以順時鐘方向 360 度觸摸腸壁，前列腺約位於 12 點方向</text>
+</svg>`,
+
+lymph_head: `<svg viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans TC">
+  <circle cx="160" cy="80" r="55" fill="#F1F5F3" stroke="#C7D2CC"/>
+  <rect x="130" y="125" width="60" height="90" rx="20" fill="#F1F5F3" stroke="#C7D2CC"/>
+  <circle cx="112" cy="62" r="6" fill="#2F6F68"/><text x="60" y="55" font-size="10">耳前</text>
+  <circle cx="150" cy="120" r="6" fill="#2F6F68"/><text x="90" y="128" font-size="10">下頜下</text>
+  <circle cx="130" cy="150" r="6" fill="#2F6F68"/><text x="70" y="165" font-size="10">頸前</text>
+  <circle cx="205" cy="140" r="6" fill="#2F6F68"/><text x="215" y="135" font-size="10">頸後</text>
+  <circle cx="190" cy="205" r="6" fill="#2F6F68"/><text x="200" y="225" font-size="10">鎖骨上</text>
+</svg>`,
+
+lymph_arm: `<svg viewBox="0 0 320 220" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans TC">
+  <path d="M100,20 L60,120 L90,210" fill="none" stroke="#C7D2CC" stroke-width="26" stroke-linecap="round"/>
+  <circle cx="95" cy="45" r="7" fill="#2F6F68"/><text x="115" y="40" font-size="10">腋下淋巴結</text>
+  <circle cx="72" cy="150" r="6" fill="#C97B4A"/><text x="90" y="155" font-size="10">Epitrochlear（肘內側）</text>
+</svg>`,
+
+lymph_groin: `<svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans TC">
+  <line x1="70" y1="60" x2="250" y2="60" stroke="#2F6F68" stroke-width="4"/><text x="160" y="45" text-anchor="middle" font-size="10">Horizontal group</text>
+  <line x1="160" y1="60" x2="160" y2="180" stroke="#C97B4A" stroke-width="4"/><text x="220" y="130" font-size="10">Vertical group</text>
+</svg>`
+};
+
+/* ============ CATEGORIES ============ */
+const CATS = [
+  {id:'chest', name:'胸腔與心臟', color:'var(--c-chest)'},
+  {id:'neuro', name:'神經系統', color:'var(--c-neuro)'},
+  {id:'head', name:'頭頸五官', color:'var(--c-head)'},
+  {id:'trunk', name:'胸腹軀幹', color:'var(--c-trunk)'},
+  {id:'pelvic', name:'骨盆與生殖', color:'var(--c-pelvic)'},
+  {id:'systemic', name:'全身系統', color:'var(--c-systemic)'},
+];
+
+/* ============ STATION DATA ============ */
+const STATIONS = [
+{
+  id:'resp', code:'1-3', cat:'chest', title:'呼吸系統的檢查', dept:'胸腔內科', level:'Level V・獨立執行',
+  equip:'聽診器（每 5 人 1 組）',
+  overview:'呼吸系統檢查的核心邏輯只有一句話：<b>固定順序、兩側對稱、由上到下</b>。無論你多熟練，永遠是視診→觸診→扣診→聽診，而且每個部位都要「左右各聽一次再比較」——因為呼吸疾病常常是不對稱的，唯有比較才看得出異常。這一站要建立的，不只是動作，而是「聽到聲音要能分類」的耳朵。',
+  sections:[
+    {h:'開始前：讓病人準備好', body:`<p>檢查前先洗手，請病人把上衣解開退至腰部，環境光線要充足。如果是女性病患，記得口頭確認有護理師在場——這不只是禮貌，也是評核表上會扣分的必要項目。</p><p>整個檢查過程要「有條不紊」：想像自己在畫一個「弓」字——由左至右、再由右往下、再往左側，這樣才不會漏掉任何一個肺葉區域。當病人坐著時，前後都要檢查完，不要讓病人反覆躺下又坐起。</p>`},
+    {h:'視診：先用眼睛做初步篩檢', body:`<p>觀察呼吸模式與頻率（正常成人約每分鐘 10–14 次）、胸壁兩側動作是否對稱、有沒有肋骨變形，以及嘴唇或四肢末端有沒有發紺。如果病人看起來很喘，留意呼吸窘迫的徵象：使用輔助呼吸肌、鼻翼搧動、肋間凹陷、腹式矛盾呼吸（一手放胸口、一手放腹部，感覺兩手是否「相反方向」移動）。</p>
+     <details class="deep"><summary>延伸知識：呼吸頻率異常的完整分類</summary><div class="deep-body">
+       <table><tr><th>名稱</th><th>定義</th><th>常見原因</th></tr>
+       <tr><td>Bradypnea</td><td>低於每分鐘 8–10 次</td><td>麻醉藥物、顱內壓升高、黏液水腫</td></tr>
+       <tr><td>Tachypnea</td><td>高於每分鐘 20–25 次</td><td>肺部疾病、敗血症、焦慮</td></tr>
+       <tr><td>Hyperpnea</td><td>呼吸深度增加</td><td>—</td></tr>
+       <tr><td>Hypopnea</td><td>呼吸變淺</td><td>—</td></tr>
+       <tr><td>Apnea</td><td>呼吸暫停 20 秒以上</td><td>—</td></tr>
+       </table>
+       <h5>其他異常呼吸型態</h5>
+       <ul>
+         <li><b>Abdominal paradox</b>：吸氣時腹部反而內縮、胸部擴張，見於橫膈麻痺或呼吸肌疲勞</li>
+         <li><b>Thoracic paradox</b>：不穩定胸壁那一側吸氣時反而內縮，對側正常擴張，見於連枷胸（flail chest）</li>
+         <li><b>Central hyperventilation</b>：深快呼吸，見於中腦及上橋腦病灶</li>
+       </ul>
+     </div></details>`,
+     diagram:'breath_patterns', dcap:'常見異常呼吸型態的波形示意：Cheyne-Stokes（呼吸暫停後漸強漸弱，常見於心衰竭）、Kussmaul（深而規則，見於代謝性酸中毒）、Biot’s（完全不規則，見於中樞神經損傷）'},
+    {h:'觸診：用手確認擴張與震動', body:`<p>雙手貼在病人前胸與後背，請病人深呼吸，感受兩側胸廓擴張是否對稱（正常擴張約 2–5 吋）。接著測觸覺震顫（tactile fremitus）：請病人說「99」或「E」，用手掌尺側或指背在胸壁各處感受震動強弱並左右比較——震動增強可能是肺炎等實質化病灶，減弱則可能是肋膜積液或氣胸。`},
+    {h:'扣診：聽身體發出的「回音」', body:`<p>由上到下、逐一肋間扣診，兩側對照。正常肺野是 resonant（迴音）；濁音（dull）提示底下是實質組織或積液（如肺炎、肋膜積液）；鼓音／過度共鳴（hyperresonant／tympanic）則提示氣胸或肺氣腫。`},
+    {h:'聽診：把耳朵訓練成分類器', body:`<p>聽診器膜面緊壓胸壁，請病人張口做比正常深的呼吸。依「弓」字型順序，後背先聽（3 個位置，由上到下）、再側胸、再前胸，每個位置至少聽完一個完整呼吸週期，兩側對稱比較。</p><p>正常肺泡音（vesicular）是柔和低頻、吸氣長於呼氣的聲音；正常人只有在胸骨柄附近才會聽到較粗糙的支氣管音（bronchial sound）——如果在周邊肺野聽到支氣管音，代表底下的肺泡已被實質化，聲音穿透效果反而變好了。`,
+     diagram:'resp_back', dcap:'背部聽診建議路徑：由上到下三個高度、左右兩側各一點，走成「弓」字型，確保不遺漏任何肺葉區域'}
+  ],
+  compare:[
+    {n:['Fine crackles：吸氣期小氣道突然打開的「爆裂聲」，常見於肺纖維化、肺水腫、肺炎'],
+     a:['Wheeze：氣道狹窄產生的高頻連續音，多在吐氣期，聲音類似哨音',
+        'Rhonchi：較低頻、類似打鼾聲，深呼吸或咳嗽後可能減弱或消失（代表是分泌物造成）',
+        'Stridor：上呼吸道阻塞，吸氣期出現的連續高音，聲音像貓頭鷹啼叫']}
+  ],
+  pearls:[
+    {t:'胸壁形狀異常', li:['Pectus excavatum：漏斗胸','Pectus carinatum：雞胸（外觀像鳥胸）']}
+  ],
+  selfcheck:[
+    '我能說出檢查前需要確認的三件事（洗手、暴露範圍、女性病患的陪同）',
+    '我知道視診要觀察哪五個重點',
+    '我能正確示範胸部擴張與觸覺震顫的觸診手法',
+    '我能分辨扣診的 resonant／dull／hyperresonant 三種音質',
+    '我能描述聽診的順序與路徑，並解釋為什麼要兩側比較',
+    '我能區分 crackles、wheezing、rhonchi、stridor 四種異常呼吸音的特徵與臨床意義'
+  ]
+},
+{
+  id:'cv', code:'1-4', cat:'chest', title:'心血管系統的檢查', dept:'心臟內科', level:'Level V・獨立執行',
+  equip:'聽診器（每人 1 組）',
+  overview:'心臟檢查的重點是「聽診」，但聽診之前的視診與觸診，其實已經先幫你把答案範圍縮小了——頸靜脈告訴你右心的狀態，心尖拍動的位置與範圍告訴你左心有沒有肥大。學會這一站，你會建立起「視觸聽三者互相驗證」的思考習慣，而不是死記聽診四個位置。',
+  sections:[
+    {h:'仰臥視診：先看頸靜脈與心尖拍動', body:`<p>仰臥時，正常人的外頸靜脈會有輕微怒張，若完全看不到輪廓，可能是脫水或已有明顯低血容。內頸靜脈不容易看到輪廓，主要是觀察波動，但容易被頸動脈搏動干擾，較難評估。</p><p>接著看胸壁：ASD、VSD 或肺心病造成右室肥大時，胸骨下 1/3 左緣可能看到隆起（正常應該看不到）；左室肥大時則會有左心系心尖拍動，同樣正常應看不到。</p>`},
+    {h:'仰臥觸診：找出振顫與肥大', body:`<p>頸動脈觸診在 CPR 時非常重要——由甲狀軟骨往外滑動到碰到胸鎖乳突肌處，左右分開觸摸，力道不要太大、時間不要太久，以免把頸動脈壁上的軟脂肪斑塊壓掉造成腦栓塞。主動脈瓣狹窄可摸到緩和低平的上升波；主動脈瓣逆流則可摸到急峻高聳的上升波。</p><p>右室肥大用手掌近手腕部位觸摸；左室肥大則用手指尖放在左前胸觸摸。Thrill（振顫）要用手掌近手指的部分去感受，這是判斷雜音是否達到 Grade 4 以上的重要線索。</p>`},
+    {h:'聽診：四個位置各聽兩種聲音', body:`<p>聽診器盡量選短的（約 30 公分）。高音用膜部並用力壓；低音用鼓部並輕壓——過度用力聽低音反而收音效果會減弱。第三、四心音必須用鼓部才聽得到。</p><p>依序聽：主動脈瓣區（第 2 肋間胸骨右緣）→肺動脈瓣區（第 2 肋間胸骨左緣）→三尖瓣區（第 4–5 肋間胸骨左緣）→僧帽瓣區（心尖部），從三尖瓣區移往僧帽瓣區時建議一點一點慢慢移動，避免中間漏掉異常訊號。每個位置都要聽第一音、第二音、收縮期雜音與舒張期雜音，往往需要請病人閉氣聽。`,
+     diagram:'cv_valves', dcap:'心臟聽診四大區域與建議聽診順序'},
+    {h:'換姿勢，聽到更多細節', body:`<p>左側臥位（左上肢放頭下、胸部前挺）最適合觀察與觸診左室心尖拍動，也是聽第三、四心音的最佳姿勢。左室肥厚時從頭側往下看，心尖部位會呈順時鐘轉動，造成外側隆起及「內側凹陷」；若隆起是右心肥大造成，則內側凹陷會消失。</p><p>半坐 45 度可估算頸靜脈壓：測量胸骨角到外頸靜脈怒張頂端的高度，若超過 4.5 公分即表示頸靜脈壓上升（JVE）。這個徵象特異度高（>90%）但敏感度低（約 30%），也就是說「看到了很可信，沒看到不能排除」。`},
+    {h:'別忘了周邊：肺、腹主動脈、四肢', body:`<p>完整的心血管檢查不會停在心臟，還要聽診肺部呼吸音（前後胸都要）、觸診及聽診腹主動脈與腎動脈位置，以及檢查上下肢的脈搏（Radial、Brachial、Femoral、Popliteal、Dorsalis Pedis、Posterior tibial）與有無水腫——這些線索合在一起，才是完整的心血管系統圖像。`}
+  ],
+  compare:[
+    {n:['頸動脈搏動：不隨呼吸變動，一次心收縮對應一次搏動'],
+     a:['頸靜脈搏動：隨呼吸變動，一次心週期有兩次波動（x、y descent）——分辨兩者，是判讀頸部血管搏動的第一步']}
+  ],
+  pearls:[
+    {t:'心雜音強度分級（Levine）', li:['Grade 1：仔細聽才聽得到','Grade 2：清楚聽到','Grade 3：更大聲但無 thrill','Grade 4：伴有 thrill，聽診器離開胸壁即聽不到','Grade 5–6：離開胸壁部分／完全仍可聽到']},
+    {t:'聽診紀錄的寫法', li:['強度、最強點、性狀、收縮／舒張、驅出或逆流、有無放散','例：Gr 2/6 early diastolic blowing murmur, maximum at 4LSB, no radiation']}
+  ],
+  selfcheck:[
+    '我知道仰臥視診時要特別留意哪兩個部位',
+    '我能正確示範頸動脈觸診並說出安全注意事項',
+    '我能依正確順序完成四個聽診區域，並說出各區對應的瓣膜',
+    '我能解釋為什麼左側臥位對聽診第三、四心音特別重要',
+    '我能說明如何測量並判讀頸靜脈壓（JVP）',
+    '我記得心血管檢查還包含肺部、腹主動脈與四肢脈搏檢查'
+  ]
+},
+{
+  id:'neuro', code:'1-5', cat:'neuro', title:'神經系統的檢查', dept:'神經醫學部・復健部', level:'Level V・獨立執行',
+  equip:'眼底鏡、筆燈、音叉、壓舌板、叩診錘、棉籤、聽診器',
+  overview:'神經學檢查常讓學生覺得「項目好多、記不住」，但其實它有清楚的地圖：十二對顱神經、運動系統、感覺系統、反射、協調功能，五大塊各司其職、互不重疊。與其死背順序，不如記住每一塊在問什麼問題——顱神經問「腦幹以上的通路通不通」，運動與反射問「下行與周邊神經路徑通不通」，感覺問「上行路徑通不通」，協調問「小腦有沒有在幫忙微調」。',
+  sections:[
+    {h:'顱神經：從頭到頸，一對一對問過去', body:`<p>嗅神經用茶葉、咖啡等不具刺激性物質測試兩側鼻孔；視神經檢查視力、視野（confrontation test）、瞳孔光反射與調節反射、眼底；動眼／滑車／外展神經用紅筆蓋讓病人凝視並沿六個方位移動，觀察有無複視或眼球運動受限；三叉神經測顏面三分區感覺、角膜反射、咀嚼肌力；顏面神經請病人露齒、嘟嘴、緊閉雙眼、看天花板；聽神經用音叉做 Rinne’s test（比較骨導與氣導）與 Weber’s test（比較兩耳骨導）；舌咽與迷走神經看懸壅垂位置與 gag reflex；副神經測胸鎖乳突肌與斜方肌肌力；舌下神經看舌頭有無偏移、萎縮或肌束顫動。`},
+    {h:'運動系統：先看、再摸張力、再測肌力', body:`<p>先拉開衣服觀察四肢外觀，評估有無萎縮或肥大，必要時可在特定距離量兩側肢體粗細互相比較。接著測肌肉張力，分辨是僵硬（rigidity）、痙攣（spasticity）還是肌張力減低（hypotonia）。最後依 MRC 分級測肌力，從完全無收縮的 0 分到正常的 5 分。`,
+     diagram:null},
+    {h:'感覺系統：讓病人閉眼，你才看得清楚真假', body:`<p>觸覺用棉花或棉籤輕碰（不要拖曳）；本體感覺由兩側捉住肢體以不同幅度做關節動作測試（避免病人靠施力方向猜出關節位置）；振動覺用 128Hz 音叉置於骨突處，待感覺消失後迅速移到對側或自己身上比較；痛覺用牙籤或牙線棒兩側比較。所有感覺測試都要閉眼進行，這是為了排除視覺代償造成的假陽性。`},
+    {h:'反射：從腱反射到原始反射', body:`<p>肌腱反射先讓病人放鬆並顯露肌腱，用叩診錘敲擊；若無反應可請病人做增強動作（上肢咬牙根、下肢握拳或 Jendrassik’s maneuver）。腹部反射用棉籤輕劃腹部觀察肚臍是否偏移；Babinski’s sign 沿腳底外側輕刮，大拇趾向上、其餘腳趾向下彎為陽性。原始反射（Glabellar、palmomental、suckling、snouting、grasp）在正常成人通常應該是抑制消失的，出現陽性反而提示額葉功能異常。`},
+    {h:'協調功能：小腦在幫忙微調嗎？', body:`<p>Finger-nose test 讓病人摸自己鼻子再摸你的手指，可移動目標增加難度；Heel-shin test 讓腳跟沿脛骨內側平穩下滑；反覆性動作測試「掌心—手背」快速交替拍打；最後觀察病人能否不用手支撐自行躺平坐起。`}
+  ],
+  pearls:[
+    {t:'MRC 肌力分級', li:['0 分：完全無法運動','1 分：僅可見輕微肌肉收縮','2 分：可水平運動，無法抗地心引力','3 分：可抗重力但無法抗外力','4 分：可部分抵抗施測者阻力','5 分：肌力正常']},
+    {t:'肌腱反射分級', li:['0：完全無反射　＋：減弱　＋＋：正常','＋＋＋：可能異常但不一定病態','＋＋＋＋：顯著增加，伴陣攣（clonus）']}
+  ],
+  examtip:'複習時可以把自己當成主考官出題：「請執行顱神經功能之檢查及協調運動之檢查」／「請執行運動神經系統之檢查、感覺神經系統之檢查及各種反射之檢查」——試著不看講義從頭做一次，看看哪裡卡住。',
+  selfcheck:[
+    '我能依序測試十二對顱神經，並說出每對對應的功能',
+    '我能正確使用 MRC 分級描述肌力',
+    '我能示範觸覺、本體感覺、振動覺、痛覺四種感覺測試',
+    '我能正確引出並判讀肌腱反射與 Babinski’s sign',
+    '我知道至少三種原始反射的測試方式',
+    '我能完成 finger-nose test 與 heel-shin test 並解釋這在測什麼'
+  ]
+},
+{
+  id:'eye', code:'課9', cat:'head', title:'眼睛的檢查（含眼底鏡操作）', dept:'眼科部', level:'Level IV・臨床實境需督導',
+  equip:'直接眼底鏡',
+  overview:'眼底鏡操作是所有身體檢查裡「手感」成分最重的一站——步驟本身不難，但距離、角度、姿勢差一點，看到的畫面就完全不同。這一站的自學重點不是背步驟，而是理解每個步驟背後在解決什麼「看不清楚」的問題。',
+  sections:[
+    {h:'為什麼要在暗室、用同側眼看同側眼？', body:`<p>先確認眼底鏡正常運作、燈光恰當，自我介紹並向病人解釋步驟，確認病人適合接受檢查。檢查前先關燈，讓病人瞳孔自然放大，並請病人向前凝視遠方——凝視遠方可以放鬆調節反射，避免瞳孔在你靠近時持續收縮。</p><p>根據病人瞳孔大小調整光圈，再調整眼底鏡的屈光度。<b>右眼檢查病人右眼、左眼檢查病人左眼</b>：這是為了讓你和病人的視軸盡量在同一直線上，才能靠得夠近而不會互相「撞頭」。`},
+    {h:'從紅光反射，一路對焦到視神經盤', body:`<p>先在約 30 公分外側 15 度角的位置檢查紅光反射（red reflex），並將眼底鏡對焦於虹膜——紅光反射消失或不對稱，可能提示白內障或更嚴重的眼內病灶。接著持儀器手的尺側邊緣貼靠病人臉頰以維持穩定，距離病人眼睛 2–3 公分處，另一手拇指提起上眼瞼。`,
+     diagram:'eye_scope', dcap:'眼底鏡操作的距離與角度：由外側約 15° 靠近，最終停在 2–3 公分處，持鏡手貼臉頰以維持穩定'},
+    {h:'檢測折射介質，最後看視神經盤', body:`<p>沿路檢測折射中介質（角膜、水晶體、玻璃體）有沒有混濁，最後將焦點對到視神經盤，並檢視視網膜神經纖維層。檢查結束記得關閉電源、收拾器材，並向病患說明檢查結果。`}
+  ],
+  selfcheck:[
+    '我能說出檢查前需要做的三項準備（設備、暗室、瞳孔調整）',
+    '我理解為什麼要用右眼看病人右眼、左眼看病人左眼',
+    '我能說出正確的距離與角度（2–3 公分、約 15 度）',
+    '我知道檢查紅光反射的意義',
+    '我能依序完成從虹膜對焦到視神經盤的整個流程'
+  ],
+  examtip:'請練習左右眼都操作一次——很多人只熟練慣用眼那一側，臨場遇到另一側常會手忙腳亂。'
+},
+{
+  id:'ear', code:'1-10', cat:'head', title:'耳朵的檢查（含操作耳鏡）', dept:'耳鼻喉部', level:'Level V・獨立執行',
+  equip:'檢耳鏡（每 5 人 1 組）',
+  overview:'耳道是斜的，這件事決定了這一站幾乎所有的操作細節：頭要往哪邊轉、耳廓要往哪個方向拉、鏡頭要怎麼放，全部都是為了讓彎曲的耳道被「拉直」，好讓你真正看到鼓膜，而不是把耳道後壁誤認成鼓膜。',
+  sections:[
+    {h:'先讓耳道變直，才看得到鼓膜', body:`<p>洗手後準備檢耳鏡，選擇最適當的尺寸——初學者常因怕刺激病人而選太小的鏡頭，結果視野反而受限。向病人說明檢查目的，讓病人採舒適坐姿，<b>頭往受檢耳的對側傾斜</b>；若頭部擺正，反而更不容易看到鼓膜。</p><p>先對耳廓做視診及觸診，觀察有無紅腫、疼痛或發育異常。接著把耳廓往後上方拉、耳珠往前方拉，使耳道打開變直；如果病人是小孩，耳廓則要往下拉，因為幼兒耳道的角度和成人不同。`,
+     diagram:'ear_pull', dcap:'成人與幼兒的耳廓牽拉方向不同——這是為了配合各年齡層耳道天生的傾斜角度'},
+    {h:'置入耳鏡，觀察並描述你看到的東西', body:`<p>將檢耳鏡前端緩慢置入耳道，伸直並輕微擴張耳道軟骨部分。在耳鏡下觀察耳道及鼓膜的外觀與結構，練習「口述」你看到的發現——這個習慣在臨床上非常重要，因為你的觀察最終要能被記錄、被溝通。`},
+    {h:'鼓膜正常長什麼樣子？', body:`<p>正常鼓膜是珍珠灰色，受檢時會反光形成「光錐」。從耳道看過去，鼓膜略呈凹面朝外的圓錐形（嬰孩比大人明顯），耳鏡下應能看到鎚骨短突和鎚骨柄的標的。若中耳腔壓力改變，鼓膜可能內縮或外凸，導致光錐形狀與標的改變。`,
+     diagram:'tm_colors', dcap:'鼓膜顏色與可能病因的對應：顏色是耳鏡檢查裡最直接的判讀線索'},
+    {h:'收尾：緩慢退出，別忘了問一句', body:`<p>檢查完緩慢退出檢耳鏡，並詢問受檢者有沒有不適感——這個動作看似小細節，卻是評核表上明確會扣分的項目。`}
+  ],
+  selfcheck:[
+    '我知道為什麼要讓病人頭往對側傾斜',
+    '我能正確示範成人與幼兒不同的耳廓牽拉方向',
+    '我能正確操作耳鏡的置入與觀察',
+    '我能說出至少三種鼓膜顏色異常對應的臨床意義',
+    '我記得檢查後要詢問病人是否不適'
+  ]
+},
+{
+  id:'neck', code:'1-11', cat:'head', title:'頸部及甲狀腺的檢查', dept:'耳鼻喉部', level:'Level V・獨立執行',
+  equip:'檢診手套（一盒）',
+  overview:'這一站其實是兩個檢查合併在一起：一般的頸部淋巴結／腫塊觸診，加上專門針對甲狀腺的定位與功能評估。理解頸部的解剖分區，會讓你觸診時「知道自己摸到的位置代表什麼」，而不是漫無目的地按壓。',
+  sections:[
+    {h:'先視診，站在病人前方看整體', body:`<p>洗手戴手套，向病人說明檢查目的，讓病人採舒適坐姿、頸部肌肉放鬆。檢查者站在受檢者<b>前方</b>，觀察頸部有沒有發紅、腫脹或兩側不對稱；若衣著遮住檢查範圍，需請病人露出鎖骨上窩及胸骨上切跡以上的區域。`},
+    {h:'觸診：站到病人後方，按解剖分區找', body:`<p>檢查者換到受檢者<b>後方</b>，雙手放在頸部兩側，拇指在後、其他手指在前，同時輕壓兩側同樣的解剖位置，依序檢查頦下三角、下頜下三角、頸前三角、頸後三角。若摸到異常，要能描述位置、大小、硬度、移動性、是否疼痛——這五個描述維度，之後在乳房、腹股溝、淋巴結檢查都會重複用到，是身體診察的共通語言。
+     <div><span class="crosslink" onclick="showStation('lymph')">頭頸部淋巴結的完整分區與鑑別診斷，見「1-19 淋巴節的檢查」——這一站的評核也會考頭頸部淋巴結分佈與臨床意義</span></div>`,
+     diagram:'neck_triangles', dcap:'頸部前三角與後三角的分界，以及甲狀腺的大致位置'},
+    {h:'找到甲狀腺，並確認它會不會「跟著吞嚥動」', body:`<p>先用觸診分辨甲狀軟骨與環狀軟骨的位置，環狀軟骨以下、氣管兩側就是甲狀腺所在，用同樣的方式感覺是否對稱、有無明顯突起或硬塊。接著請病人做吞嚥動作，雙手放在前頸部或甲狀腺上，觀察甲狀軟骨、環狀軟骨及甲狀腺是否隨吞嚥而上下移動——這個「隨吞嚥移動」的特性，是甲狀腺區別於其他頸部腫塊的關鍵線索。</p><p>若懷疑甲狀腺功能亢進腫大，可進一步用聽診器貼在甲狀腺葉上，聽診是否有雜音（bruit）。`}
+  ],
+  pearls:[
+    {t:'甲狀腺功能不足的全身徵象', li:['心跳變慢、心包膜積水、腸胃蠕動變差、血脂異常','小孩：生長遲緩、智力低下（呆小症）——這也是為什麼新生兒篩檢包含甲狀腺功能']}
+  ],
+  selfcheck:[
+    '我能說出頸部前三角與後三角的分界結構',
+    '我能正確示範站位（視診在前、觸診在後）',
+    '我能用五個維度（位置、大小、硬度、移動性、疼痛）描述異常發現',
+    '我能正確定位甲狀腺並解釋「隨吞嚥移動」的意義',
+    '我知道什麼情況下需要加做甲狀腺聽診'
+  ],
+  examtip:'請執行頸部區域之檢查（含甲狀腺）——練習時試著同時口述你的每一個發現，這是臨床溝通的核心能力。'
+},
+{
+  id:'throat', code:'1-12', cat:'head', title:'咽喉的檢查', dept:'耳鼻喉部', level:'Level V・獨立執行',
+  equip:'筆燈或手電筒（每 5 人 1 組）、壓舌板（50 支）',
+  overview:'咽喉檢查最容易被忽略的重點，其實是「怎麼避免誘發嘔吐反射」——壓舌板放的位置、深度、時機，都直接影響病人的舒適度與你能不能順利完成檢查。',
+  sections:[
+    {h:'先問異物，再開始檢查', body:`<p>洗手，準備筆燈、壓舌板、檢診手套，請受檢者取下口腔內異物（如假牙）——遺漏這一步會讓後續的視診品質大打折扣。向病人說明檢查目的，讓病人採舒適坐姿、下巴略微上提，身體放鬆、舌頭放軟並張口呼吸。`},
+    {h:'先看口腔，再看口咽', body:`<p>光源照進口腔，輔以壓舌板檢查舌頭、口底、牙齒與牙齦、頰黏膜及硬顎（次序可調整）。接著以壓舌板下壓<b>舌前 2/3</b> 的位置，檢查懸壅垂、扁桃腺及後咽壁，必要時請受檢者發聲協助觀察懸壅垂的收縮對稱性。
+     <details class="deep"><summary>延伸知識：口咽各構造的解剖細節</summary><div class="deep-body">
+       <ul>
+         <li><b>舌頭</b>：舌背、舌側多有點狀乳頭，留意有無潰瘍或明顯腫脹；舌腹面表面平滑有大靜脈，舌下中線有舌繫帶（frenum），少數幼兒可見過短</li>
+         <li><b>口底</b>：組織較鬆散，內有舌下腺、頜下腺，光靠視診不易診斷結石或腫瘤，常需雙手觸診（一手於口底、一手於皮膚上兩邊輕壓）</li>
+         <li><b>牙齒與牙齦</b>：注意蛀牙、咬合異常、牙齦出血／腫脹／萎縮／潰瘍</li>
+         <li><b>頰黏膜</b>：上排第二大臼齒處有腮腺管開口小凸起；成人黏膜常見黃色腺樣體（皮脂腺）；牙齒咬合面可能有白線（上下排牙齒壓痕）；留意白斑、紅斑等異常</li>
+         <li><b>顎部</b>：硬顎較白、有縐褶，後緣有黏液腺管開口；軟顎顏色較粉紅、有微血管分佈</li>
+         <li><b>懸壅垂</b>：長度厚度可變，偶有分叉現象</li>
+         <li><b>扁桃腺</b>：顏色與口腔其他部分略同，表面偶有白點上皮脫落物；長期發炎或急性感染時會腫脹，懷疑病灶需加做觸診確認是否變硬、出血</li>
+         <li><b>後咽壁</b>：黏膜色澤與其他構造相似，上有微血管——初學者常誤把小血管當成發炎反應；黏膜上小而不規則的淋巴組織在感染發炎時會增生</li>
+       </ul>
+     </div></details>`,
+     diagram:'throat_map', dcap:'口咽構造示意：舌頭、硬軟顎、懸壅垂、扁桃腺與後咽壁的相對位置'},
+    {h:'為什麼位置很重要：避開嘔吐反射的觸發點', body:`<p>口咽部檢查容易誘發嘔吐反射，因此下壓壓舌板時要避免刺激舌後、軟顎、扁桃腺或後咽壁等敏感部位。觀察每個構造時，除了外觀顏色，也要留意有沒有潰瘍、腫瘤等病灶。`},
+    {h:'收尾', body:`<p>緩慢退出壓舌板，並詢問受檢者有無不適感。`}
+  ],
+  selfcheck:[
+    '我記得檢查前要詢問並移除口腔內異物',
+    '我能依序完成口腔構造與口咽構造的檢查',
+    '我知道壓舌板下壓時該避開哪些容易誘發嘔吐反射的部位',
+    '我能說出至少五個口咽部需要觀察的構造名稱'
+  ],
+  examtip:'請執行咽喉的檢查（口腔與口咽）——練習時可以請同學互相觀察彼此壓舌板放的位置是否太靠後。'
+},
+{
+  id:'breast', code:'1-13', cat:'trunk', title:'乳房檢查', dept:'一般外科', level:'Level V・獨立執行',
+  equip:'診療床',
+  overview:'乳房檢查是少數「問診比重特別高」的身體診察站——因為危險因子的評估，往往比觸診本身更能決定後續要不要安排影像檢查。這一站要練習的，除了觸診手法，更是完整的「問診＋檢查＋衛教」流程。',
+  sections:[
+    {h:'先搞懂：乳房檢查不是只有觸診一種方法', body:`<p>臨床上乳房相關檢查其實是一整套組合拳，觸診只是第一線。理解全貌，才知道觸診之後懷疑異常時，下一步該安排什麼。
+     <details class="deep"><summary>延伸知識：目前常用的乳房檢查方法（共 6 種）</summary><div class="deep-body">
+       <ul>
+         <li>醫生對病人的詳細問診</li>
+         <li>醫生的視診和觸診</li>
+         <li>乳房 X 光攝影</li>
+         <li>乳房超音波</li>
+         <li>粗針穿刺病理檢查</li>
+         <li>鈎針定位鈣化點切片病理檢查</li>
+       </ul>
+       <p style="margin-top:10px;">問診、視診和觸診的目的，是了解受檢者的健康狀況與家族病史，並確定是否具有乳癌危險因子，由此研判罹患乳癌的機率及後續應安排的檢查（通常會走向影像學或病理切片）。</p>
+     </div></details>`},
+    {h:'問診：先建立風險輪廓', body:`<p>詢問年齡、婚姻狀況、月經史與生育情形，母親或姊妹家族中是否有人得過乳癌，乳房是否有硬塊或疼痛，乳頭有無不正常分泌物，皮膚有沒有濕疹、橘皮狀或發炎，皮膚或乳頭有沒有凹陷，乳房外型是否對稱，以及是否曾接受乳房手術或服用女性荷爾蒙製劑。`},
+    {h:'視診：對稱性是第一線索', body:`<p>檢查兩邊乳房是否對稱、大小是否一致、有沒有不正常突起，皮膚或乳頭是否凹陷或有濕疹樣變化。`},
+    {h:'觸診：從乳頭往外，螺旋式滑動', body:`<p>患者平躺，右肩下墊枕頭、右手彎曲置於頭下，用雙手指腹由乳頭開始做環狀順時鐘方向按壓螺旋滑動，逐漸向外，整個乳房約檢查三至四圈；再用同樣方法檢查左側。手指併攏以指腹檢查，先輕壓、再稍微深壓。除了乳房本體，也要檢查有無腋下淋巴結腫大，最後以食指、拇指擠壓乳頭，注意有無異常分泌物。
+     <div><span class="crosslink" onclick="showStation('lymph')">腋下淋巴結的完整分佈與判讀邏輯，見「1-19 淋巴節的檢查」</span></div>`,
+     diagram:'breast_pattern', dcap:'觸診範圍與路徑：由乳頭開始螺旋向外，涵蓋鎖骨下方、胸骨中線、肋骨下緣及腋下'},
+    {h:'把檢查變成一次衛教機會', body:`<p>最佳自我檢查時機是每個月經週期後第 3–5 日，或停經後婦女每月固定一天。乳房檢查範圍包含乳房兩側、鎖骨下方、胸骨中線、肋骨下緣及腋下。這些資訊值得在檢查過程中順口衛教給病人。`}
+  ],
+  pearls:[
+    {t:'乳癌高危險因子（記住至少三項）', li:['對側乳癌病史；家族乳癌史（尤其母親、姊妹或男性親屬）','初經早於 12 歲或停經晚於 55 歲','30 歲後生第一胎或未曾生育；高脂飲食','BRCA 基因；胸部曾放射線治療；雌性激素用藥史']},
+    {t:'篩檢建議頻率', li:['35–39 歲：每三年一次（高危險群每兩年）','40–49 歲：每兩年一次（高危險群每年）','50 歲以上：每年一次']}
+  ],
+  selfcheck:[
+    '我能列出至少五項需要詢問的乳癌危險因子',
+    '我知道最佳的乳房檢查時機',
+    '我能正確示範觸診的姿勢與螺旋滑動路徑',
+    '我能說出完整的乳房檢查範圍',
+    '我記得要一併檢查腋下淋巴結'
+  ]
+},
+{
+  id:'abd', code:'1-14', cat:'trunk', title:'腹部的檢查', dept:'胃腸科', level:'Level V・獨立執行',
+  equip:'聽診器',
+  overview:'腹部檢查有一個和其他站不同的地方：順序是<b>視→聽→扣→觸</b>，聽診要排在扣診與觸診「之前」。原因很簡單——扣診和觸診的機械刺激，可能會改變腸蠕動音的頻率，讓你聽到不準確的訊息。先聽，才聽得到最真實的腸道聲音。',
+  sections:[
+    {h:'問診：別漏掉這四類病史', body:`<p>與病情相關的症狀和病史、過去和個人病史（含職業史和開刀紀錄）、藥物史（含藥物過敏史）、家族史——這四類是必要條件，尤其「與病情相關的症狀」若完全沒問，在評核表上會直接扣分。`},
+    {h:'準備與視診：姿勢決定觸診的準確度', body:`<p>與病患溝通檢查目的，注重隱私（異性病患需異性醫療人員陪同）。讓病患平躺、屈髖關節及雙膝、兩手平放在腹側、露出腹部——屈膝可以放鬆腹肌，是後續觸診準確度的關鍵。觀察外型是否對稱平坦、有無突出或血管怒張，留意 Cullen’s sign（藍色肚臍，提示腹腔內出血）與 Grey Turner’s sign（後腹腔出血性胰臟炎或腸絞縮），並描述手術疤痕、靜脈怒張、疝氣的位置。`,
+     diagram:'abd_quad', dcap:'腹部四象限與對應器官，以及檢查的固定順序：視→聽→扣→觸'},
+    {h:'聽診：先把聽診器弄暖', body:`<p>把聽診器弄暖是必要條件，沒做到會直接扣分——這不只是禮貌，冰冷的聽診器貼上腹部會讓病人反射性收縮腹肌，反而影響檢查品質。聽腸蠕動音（正常約每分鐘 3–30 次）、血管音、振水音（succussion splash）、金屬音。`},
+    {h:'扣診：肝脾大小與腹水', body:`<p>扣診肝臟在右中鎖骨線及胸骨中線的大小（liver span），正常右中鎖骨線約 8–12 公分、胸骨中線約 4–8 公分。脾臟在左側最下方肋間與左前腋線交叉處扣診，正常應為 resonance，濁音則要考慮脾腫大。腹水以 shifting dullness 測試：平躺時敲出液面線並作記號，讓病人側臥後再敲一次比較位移，陽性通常代表腹水量已達 1500 毫升以上。`},
+    {h:'觸診：最痛的地方留到最後', body:`<p>先輕觸診、後深觸診，最痛的地方最後才摸——這是為了避免一開始就引發防禦性肌肉收縮，讓後面的觸診都不準確。確認肝脾有無腫大，評估壓痛（tenderness）的位置與嚴重度，並檢查 rebound tenderness 及 Murphy’s sign（右上腹壓痛，吸氣時因膽囊碰到手指而突然停止吸氣為陽性）。`}
+  ],
+  selfcheck:[
+    '我能說出腹部檢查的固定順序，並解釋為什麼聽診要排在扣診觸診之前',
+    '我能正確擺位病人並說出注重隱私的具體做法',
+    '我記得聽診前要弄暖聽診器',
+    '我能示範肝脾扣診並說出正常的 liver span 範圍',
+    '我能示範 shifting dullness 測試腹水',
+    '我知道觸診時「最痛處最後摸」的原因，並能示範 Murphy’s sign'
+  ],
+  examtip:'一右上腹痛病患，請做與病情相關的基本病史詢問及完整的腹部身體檢查——練習時試著先自己列出病史詢問的四大類，再開始理學檢查。'
+},
+{
+  id:'inguinal', code:'1-15', cat:'pelvic', title:'腹股溝的檢查', dept:'一般外科部', level:'Level V・獨立執行',
+  equip:'檢診手套（每 2 人 1 組）',
+  overview:'腹股溝檢查的目標很單純：判斷有沒有疝氣。但要做得準確，得先搞懂腹股溝管的解剖走向，並理解「為什麼要請病人咳嗽或憋氣」——這個動作是在人為製造腹內壓上升，讓潛在的疝氣「現形」。',
+  sections:[
+    {h:'站姿檢查，先看再摸', body:`<p>洗手戴手套，向病人解釋步驟，請病人站立並露出腹股溝部位（女性病人需有護士陪同）。先視診觀察是否有不明突起或明顯腫塊，並請病人咳嗽或憋氣增加腹腔壓力，觀察突起或腫塊是否更加明顯。`,
+     diagram:'inguinal_map', dcap:'腹股溝管解剖示意：沿精索方向以食指伸入外環，感受咳嗽或憋氣時有無突出物推擠'},
+    {h:'觸診：食指沿著精索的方向探入', body:`<p>用一手食指在腹股溝內側（腹股溝管外環）沿著精索進入腹股溝管，再請病人咳嗽或憋氣增加腹腔壓力，感覺指尖或指腹有沒有突出物的推擠感，藉此判斷是否有疝氣存在。
+     <details class="deep"><summary>延伸知識：鼠蹊區完整解剖構造</summary><div class="deep-body">
+       <ul>
+         <li><b>骨性標記</b>：髂骨前上嵴（Anterior superior iliac spine）、恥骨聯合（Symphysis pubis）</li>
+         <li><b>韌帶</b>：鼠蹊韌帶（Inguinal ligament），連接髂骨前上嵴與恥骨結節，是腹股溝檢查最重要的定位線</li>
+         <li><b>腹股溝管相關</b>：鼠蹊管（Inguinal canal）、外環（External ring）——精索由此穿出</li>
+         <li><b>血管與間隙</b>：股靜脈（Femoral vein）、股動脈（Femoral artery）、股管（Femoral canal，股疝氣好發位置，需與腹股溝疝氣鑑別）</li>
+         <li><b>肌肉層次</b>：外斜肌、內斜肌、腹橫肌（Transversus abdominis m.）——由淺至深構成腹股溝管的管壁</li>
+         <li><b>其他</b>：精索（Spermatic cord）、鼠蹊淋巴結（Inguinal lymph nodes）</li>
+       </ul>
+     </div></details>
+     <div><span class="crosslink" onclick="showStation('lymph')">腹股溝淋巴結的水平組／垂直組分佈，見「1-19 淋巴節的檢查」——這一站的評核也會考腹股溝淋巴結分佈與臨床意義</span></div>`},
+    {h:'判讀：不同種類疝氣的觸診表現不同', body:`<p>能不能區分疝氣種類，是這一站進階的學習目標。腹股溝疝氣依位置與走向可分為不同類型，觸診時突出物出現的時機與位置會提供重要線索——這部分建議搭配解剖圖反覆練習，光靠文字描述很難建立空間感。`}
+  ],
+  selfcheck:[
+    '我能正確指出腹股溝管相關的解剖構造（含股動靜脈、股管的相對位置）',
+    '我知道為什麼要請病人咳嗽或憋氣',
+    '我能正確示範食指探入腹股溝管的觸診手法',
+    '我能說出腹股溝淋巴結的分佈位置',
+    '我能初步判讀觸診結果並說明依據'
+  ]
+},
+{
+  id:'male-gu', code:'1-16', cat:'pelvic', title:'男性生殖系統的檢查', dept:'外科部・泌尿外科', level:'Level III・模擬臨床環境',
+  equip:'男性生殖系統模型、檢診手套（每 10 人 1 組）',
+  overview:'這一站在技巧上並不複雜，真正的難點是「隱私與溝通」——如何在維持專業距離的同時，完成必要的視診與觸診。把隱私保護的步驟當作檢查流程的一部分來練習，而不是額外的附加項目。',
+  sections:[
+    {h:'開始前：隱私保護不是選項，是流程', body:`<p>病患採站立姿勢脫掉下體衣物；若操作者為女性醫師，應請護理人員陪同一起診視。與病人溝通、徵詢同意的過程中，都要考量環境及個人隱私的保護——單獨診間、適當隔音、布簾隔開，都是實務上會用到的具體做法。
+     <details class="deep"><summary>延伸知識：隱私保護的六項具體實務做法</summary><div class="deep-body">
+       <ul>
+         <li>病人有權利聽取自己健康與醫療相關的說明，並於理解後接受、選擇或拒絕檢查、治療或其他醫療行為；宜有書面指引確保內容確實傳達</li>
+         <li>與病人作病情說明及溝通，或於執行觸診診療行為及徵詢病人同意之過程中，均應考量環境及個人隱私之保護</li>
+         <li>就診時應確實隔離其他不相關人員在場；若需錄音或錄影，應先徵得醫病雙方同意</li>
+         <li>門診診間及諮詢會談場所應為單診間，且有適當隔音；診間入口應有門隔開，並有具體確保隱私之設施</li>
+         <li>進行檢查及處置之場所，至少應以布簾隔開（較私密部位以有個人房間為理想），檢查台應備有被單、治療巾，避免過度暴露</li>
+         <li>特殊檢查及處置應安排適當人員陪同、有合適醫事人員在場，並隨時觀察注意隱私維護；有實習學生在旁，須事先充分告知病人，較私密部位之檢查應徵得病人同意</li>
+       </ul>
+     </div></details>`},
+    {h:'視診：從皮膚看到尿道口', body:`<p>操作者戴上外科口罩及檢診手套後，將病患包皮褪至最底端（若包皮開口過緊、無法翻出龜頭或翻出會痛，即為包莖），仔細觀察尿道口開口大小及位置、龜頭、陰莖及周圍皮膚是否有異常發育或病變。`},
+    {h:'觸診：陰囊內的三個結構', body:`<p>視診陰囊及周圍皮膚後，再行觸診，仔細觸壓雙側陰囊及睪丸、副睪、輸精管和鼠蹊部淋巴結，檢查有無不正常腫塊或壓痛。
+     <div><span class="crosslink" onclick="showStation('lymph')">鼠蹊部淋巴結的分佈與判讀，見「1-19 淋巴節的檢查」</span></div>`,
+     diagram:'male_gu_schema', dcap:'陰囊內部結構相對位置示意：睪丸、副睪、輸精管'},
+    {h:'診斷靜脈曲張：靠腹壓現形', body:`<p>請患者吸氣後憋氣、腹部用力向下擠壓，當腹壓增加時，以視診及觸診檢查陰囊兩側上方是否出現如彎曲鼓脹之血管——這和腹股溝疝氣檢查用咳嗽憋氣的原理是一樣的邏輯。檢查完畢，記得將包皮推回原位。`}
+  ],
+  selfcheck:[
+    '我能列出隱私保護在這一站的具體做法',
+    '我能說出男性第二性徵的四個觀察重點',
+    '我能正確辨認並描述包莖',
+    '我能觸診並定位睪丸、副睪、輸精管',
+    '我能示範診斷精索靜脈曲張的方法'
+  ]
+},
+{
+  id:'dre', code:'1-18', cat:'pelvic', title:'直腸指診', dept:'大腸直腸外科', level:'Level IV・臨床實境需督導',
+  equip:'手套、潤滑劑',
+  overview:'直腸指診常被視為最讓學生緊張的一站，但拆解開來看，它其實只有三個核心動作：擺位、360 度觸摸、系統性描述發現。把這三步練熟，緊張感會自然降低。',
+  sections:[
+    {h:'擺位與溝通：先徵得同意再開始', body:`<p>解釋檢查目的及程序以獲得病患同意；異性患者需有相同性別之醫護人員共同參與；確保環境隱私。準備病人位置：朝左側躺、膝蓋彎曲，褲子及內褲脫至膝蓋。`},
+    {h:'插入前：先觀察，再潤滑', body:`<p>洗手並戴上手套，先觀察肛門及周圍地區外觀。提醒病患指診即將開始，將手指潤滑後滑順插入肛門，並感受肛門括約肌收縮力——括約肌張力本身就是重要的臨床資訊。`},
+    {h:'360 度觸摸：像時鐘一樣繞一圈', body:`<p>觸摸肛門與直腸，並以 360 度全面觸摸檢查，不遺漏任何一個方向。若有異常，要能描述軟硬度、移動性、大小及是否壓痛。`,
+     diagram:'dre_clock', dcap:'360 度觸診示意：以順時鐘方向繞一圈，前列腺約位於 12 點方向'},
+    {h:'別忘了前列腺與退出後的觀察', body:`<p>檢查前列腺硬度、大小；移出手指後檢查糞便顏色（有無血漬、顏色深淺、軟硬度）；最後協助清潔肛門並協助病人穿好衣物。`}
+  ],
+  selfcheck:[
+    '我能說出取得同意與擺位的完整流程',
+    '我能示範 360 度指診觸摸動作',
+    '我能用軟硬度、移動性、大小、壓痛四個維度描述異常發現',
+    '我能定位並描述前列腺的觸診發現',
+    '我記得檢查後要協助病人清潔並觀察糞便性狀'
+  ]
+},
+{
+  id:'lymph', code:'1-19', cat:'systemic', title:'淋巴節的檢查', dept:'血液腫瘤科', level:'Level V・獨立執行',
+  equip:'無',
+  overview:'這一站是全身淋巴系統的<b>知識總覽</b>，建議把它當成字典查閱，而不是唯一考核的地方——實際上，頭頸部淋巴結會併入「1-11 頸部及甲狀腺的檢查」評核、腋下淋巴結會併入「1-13 乳房檢查」評核、腹股溝淋巴結會併入「1-15 腹股溝的檢查」評核，各站考的時候會直接問你「這裡的淋巴結怎麼分佈、異常代表什麼」。所以熟悉這一站的地圖，等於同時為另外三站做準備。',
+  sections:[
+    {h:'頭頸部：五個主要區域', body:`<p>依序觸診頭頸部各淋巴結區域：耳前（preauricular，引流頭皮與皮膚）、下頜下（submandibular，引流口腔）、頸前（anterior cervical，引流喉部、舌頭、口咽）、頸後（posterior cervical，引流頭皮、頸部、上胸部皮膚）、鎖骨上（supraclavicular，引流腸胃道、泌尿生殖道、肺部——在 40 歲以上成人若出現腫大，90% 以上為惡性，臨床意義特別重大）。
+     <details class="deep"><summary>延伸知識：頭頸部各區域的鑑別診斷與惡性腫瘤</summary><div class="deep-body">
+       <table>
+         <tr><th>區域</th><th>引流範圍</th><th>常見鑑別診斷</th><th>需留意的惡性腫瘤</th></tr>
+         <tr><td>耳前（Preauricular）</td><td>頭皮、皮膚</td><td>頭皮感染、分枝桿菌感染</td><td>皮膚腫瘤、淋巴瘤、頭頸部鱗狀細胞癌</td></tr>
+         <tr><td>下頜下（Submandibular）</td><td>口腔</td><td>傳染性單核球增多症、上呼吸道病毒／細菌感染、分枝桿菌感染、弓漿蟲、巨細胞病毒、德國麻疹、牙科疾病</td><td>頭頸部鱗狀細胞癌、淋巴瘤、白血病</td></tr>
+         <tr><td>頸前（Anterior cervical）</td><td>喉部、舌頭、口咽、前頸部</td><td>同下頜下</td><td>同下頜下</td></tr>
+         <tr><td>頸後（Posterior cervical）</td><td>頭皮、頸部、上胸部皮膚</td><td>同耳前</td><td>同耳前</td></tr>
+         <tr><td>鎖骨上（Supraclavicular）</td><td>腸胃道、泌尿生殖道、肺部</td><td>腹部／胸部腫瘤、甲狀腺／喉部疾病、分枝桿菌或黴菌感染</td><td>特別需要警覺——40 歲以上成人腫大 90% 以上為惡性</td></tr>
+       </table>
+       <h5>頸部淋巴引流分區（I–VI 區，臨床常用分法）</h5>
+       <ul>
+         <li>I 區：頦下（Submental）及下頜下（Submandibular）——引流牙齒、口腔內部及口底構造</li>
+         <li>II 區：上頸靜脈區（Upper jugulodigastric group）</li>
+         <li>III 區：中頸靜脈區（Middle jugular nodes）——引流鼻咽、口咽、口腔、下咽、喉部</li>
+         <li>IV 區：下頸靜脈區（Inferior jugular nodes）——引流下咽、聲門下喉部、甲狀腺、食道</li>
+         <li>V 區：頸後三角區（Posterior triangle group）</li>
+         <li>VI 區：頸前區（Anterior compartment group）</li>
+       </ul>
+     </div></details>
+     <div><span class="crosslink" onclick="showStation('neck')">回到「1-11 頸部及甲狀腺的檢查」看觸診手法</span></div>`,
+     diagram:'lymph_head', dcap:'頭頸部淋巴結主要分區與大致位置'},
+    {h:'腋下與腹股溝：上下肢的引流終點', body:`<p>腋下淋巴結引流乳房、上肢、胸壁；肘內側的 epitrochlear nodes 則引流尺側前臂與手部。腹股溝淋巴結分為水平組（horizontal group）與垂直組（vertical group），引流下腹部、外生殖器、肛門、下 1/3 陰道及下肢。
+     <details class="deep"><summary>延伸知識：腋下與腹股溝的鑑別診斷</summary><div class="deep-body">
+       <h5>腋下淋巴結（Axillary nodes）</h5>
+       <ul><li>鑑別診斷：皮膚感染／外傷、貓抓病、兔熱病、孢子絲菌病、類肉瘤病、梅毒、痲瘋、布氏桿菌病、利什曼原蟲病</li><li>惡性腫瘤：乳癌、皮膚腫瘤、淋巴瘤、白血病、軟組織／卡波西氏肉瘤</li></ul>
+       <h5>Infraclavicular nodes（鎖骨下淋巴結）</h5>
+       <ul><li>高度懷疑非何杰金氏淋巴瘤</li></ul>
+       <h5>腹股溝淋巴結（Inguinal nodes）</h5>
+       <ul><li>鑑別診斷：良性反應性淋巴腫、性傳染病、皮膚感染</li><li>惡性腫瘤：淋巴瘤、陰莖／外陰／肛門鱗狀細胞癌、皮膚腫瘤、軟組織／卡波西氏肉瘤</li></ul>
+     </div></details>
+     <div class="crosslink" onclick="showStation('breast')" style="margin-right:8px;">回到「1-13 乳房檢查」</div>
+     <div class="crosslink" onclick="showStation('inguinal')">回到「1-15 腹股溝的檢查」</div>`,
+     diagram:'lymph_groin', dcap:'腹股溝淋巴結的水平組與垂直組'},
+    {h:'觸診到腫大，你要問自己五個問題', body:`<p>大小（超過 1 公分視為異常）、疼痛（多提示發炎感染，無痛反而要警覺惡性可能）、硬度（石頭般硬提示轉移；橡皮般硬提示淋巴瘤；柔軟多為發炎感染）、是否成串糾結（良性惡性都有可能）、位置（不同位置對應不同的引流範圍與鑑別診斷）。把這五個問題內化成反射動作，你就有了判讀任何淋巴結腫大的基本框架。
+     <details class="deep"><summary>延伸知識：淋巴結異常的完整臨床意義分類</summary><div class="deep-body">
+       <h5>1. 感染性</h5>
+       <ul><li>細菌性感染：可由局部性到全身性淋巴結腫大</li><li>病毒感染：局部性或全身性</li><li>其他微生物感染：黴菌、寄生蟲、原蟲感染等</li></ul>
+       <h5>2. 自體免疫反應</h5>
+       <ul><li>如類風濕性關節炎、紅斑性狼瘡、混合型結締組織病等</li></ul>
+       <h5>3. 腫瘤</h5>
+       <ul>
+         <li><b>原發性淋巴結腫瘤</b>：淋巴瘤類（非何杰金氏淋巴瘤、何杰金氏病）、淋巴性白血病（急性或慢性）、其他（如淋巴表皮細胞瘤）</li>
+         <li><b>續發性淋巴結腫瘤</b>：骨髓性白血病（急性或慢性）、原發性骨髓纖維化併髓外造血、轉移癌</li>
+       </ul>
+       <h5>4. 不明原因</h5>
+       <ul><li>醫源過敏性反應：如血清性疾病、移植體對抗宿主疾病</li><li>藥物引起：如抗癲癇藥、部分降血壓藥、抗生素、磺胺類藥物等</li><li>其他：如甲狀腺功能過激症等原因不明疾病</li></ul>
+     </div></details>`}
+  ],
+  pearls:[
+    {t:'常見臨床情境', li:['Cat-scratch disease、傳染性單核球增多症：常有頸部淋巴結腫大','性病：通常合併腹股溝淋巴結腫大','感染性：細菌／病毒／黴菌／寄生蟲皆可造成局部或全身性腫大','腫瘤性：原發性（淋巴瘤、淋巴性白血病）或續發性（轉移癌）']}
+  ],
+  examtip:'一頸部有結節病患，請完成頭頸部、腋下和腹股溝淋巴結完整的身體檢查，並說明淋巴結的分佈及身體檢查結果異常的臨床意義。實際考站時，這些題目通常會分散出現在頸部甲狀腺、乳房、腹股溝三站裡，而不是只在這一站單獨考。',
+  selfcheck:[
+    '我能說出頭頸部五個主要淋巴結區域及其引流範圍',
+    '我能說出腋下與腹股溝淋巴結的分佈與引流範圍',
+    '我能用五個維度（大小、疼痛、硬度、是否成串、位置）評估淋巴結異常',
+    '我能舉出淋巴結異常的四大類臨床意義（感染性、自體免疫、腫瘤性、不明原因）',
+    '我知道鎖骨上淋巴結腫大為什麼特別需要警覺',
+    '我知道這一站的知識會分散考核在頸部甲狀腺、乳房、腹股溝三站裡'
+  ]
+}
+];
+
+/* ============ RENDER ============ */
+const catMap = Object.fromEntries(CATS.map(c=>[c.id,c]));
+const navGroups = document.getElementById('navGroups');
+const main = document.getElementById('main');
+const checkState = {};
+
+CATS.forEach(cat=>{
+  const items = STATIONS.filter(s=>s.cat===cat.id);
+  if(!items.length) return;
+  const group = document.createElement('div');
+  group.className = 'cat-group';
+  group.innerHTML = `<div class="cat-label"><span class="cat-swatch" style="background:${cat.color}"></span>${cat.name}</div>`;
+  items.forEach(s=>{
+    const btn = document.createElement('button');
+    btn.className = 'station-btn';
+    btn.id = 'nav-'+s.id;
+    btn.innerHTML = `<span class="code">${s.code}</span><span>${s.title}</span>`;
+    btn.onclick = ()=>showStation(s.id);
+    group.appendChild(btn);
+  });
+  navGroups.appendChild(group);
+});
+
+function setActive(id){
+  document.querySelectorAll('.station-btn').forEach(b=>b.classList.remove('active'));
+  const el = document.getElementById('nav-'+id);
+  if(el) el.classList.add('active');
+}
+
+function toggleMobileNav(){
+  document.getElementById('sidebar').classList.toggle('nav-open');
+}
+function closeMobileNav(){
+  if(window.innerWidth <= 900) document.getElementById('sidebar').classList.remove('nav-open');
+}
+
+function showCover(){
+  setActive(null);
+  closeMobileNav();
+  main.innerHTML = `
+    <div class="cover">
+      <div class="kicker">Physical Examination / 自學講義</div>
+      <h1>13 站身體診察技巧，建立完整的操作全貌</h1>
+      <p class="lede">這份講義以「自學」為目的整理：每一站先說明這個檢查在解決什麼臨床問題，再用連貫的敘事帶你走過完整流程，穿插圖解幫助建立空間感，最後用一份不打分數的自我檢核清單，讓你確認自己是否已經掌握重點。</p>
+      <div class="cover-note">使用建議：先讀「全貌」段落建立整體概念，再對照圖解練習手感，最後用自我檢核清單複習——勾選純粹是給自己看的記錄，沒有及格分數，你可以隨時重來。</div>
+      <div class="cover-grid">
+        ${CATS.map(c=>{
+          const n = STATIONS.filter(s=>s.cat===c.id).length;
+          return `<div class="cover-card"><div class="num">${n}</div><div class="lbl" style="border-left:3px solid ${c.color}; padding-left:8px; margin-top:6px;">${c.name}</div></div>`;
+        }).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function diagramHtml(key, caption){
+  if(!key || !DIAGRAMS[key]) return '';
+  return `<div class="diagram-box">${DIAGRAMS[key]}${caption?`<div class="dcap">${caption}</div>`:''}</div>`;
+}
+
+function compareHtml(rows){
+  if(!rows) return '';
+  return rows.map(r=>`
+    <div class="compare">
+      <div><div class="hd n">典型 / 正常</div><ul>${r.n.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+      <div><div class="hd a">異常型態</div><ul>${r.a.map(x=>`<li>${x}</li>`).join('')}</ul></div>
+    </div>`).join('');
+}
+
+function pearlsHtml(pearls){
+  if(!pearls) return '';
+  return `<section class="block">
+    <div class="block-head"><span class="idx">＋</span><h3>延伸知識</h3></div>
+    <div class="pearls">${pearls.map(p=>`<div class="pearl"><h4>${p.t}</h4><ul>${p.li.map(x=>`<li>${x}</li>`).join('')}</ul></div>`).join('')}</div>
+  </section>`;
+}
+
+function selfcheckHtml(uid, items){
+  checkState[uid] = new Array(items.length).fill(false);
+  const rows = items.map((t,i)=>`
+    <div class="sc-item" id="sc-${uid}-${i}" onclick="toggleCheck('${uid}',${i})">
+      <div class="sc-box"><svg viewBox="0 0 16 16"><path d="M2,8 L6,12 L14,3" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="sc-text">${t}</div>
+    </div>`).join('');
+  return `
+    <div class="sc-wrap">
+      <div class="sc-head">
+        <h4>自我檢核清單</h4>
+        <div class="sc-progress-wrap">
+          <div class="sc-bar"><div class="sc-bar-fill" id="scfill-${uid}"></div></div>
+          <span class="sc-count" id="sccount-${uid}">0 / ${items.length}</span>
+        </div>
+      </div>
+      <div class="sc-body">${rows}</div>
+      <div class="sc-foot"><button class="reset-btn" onclick="resetCheck('${uid}')">重新開始</button></div>
+    </div>
+  `;
+}
+
+function toggleCheck(uid, idx){
+  checkState[uid][idx] = !checkState[uid][idx];
+  document.getElementById(`sc-${uid}-${idx}`).classList.toggle('checked', checkState[uid][idx]);
+  updateCheckProgress(uid);
+}
+function resetCheck(uid){
+  checkState[uid] = checkState[uid].map(()=>false);
+  checkState[uid].forEach((_,i)=>document.getElementById(`sc-${uid}-${i}`).classList.remove('checked'));
+  updateCheckProgress(uid);
+}
+function updateCheckProgress(uid){
+  const arr = checkState[uid];
+  const done = arr.filter(Boolean).length;
+  document.getElementById(`sccount-${uid}`).textContent = `${done} / ${arr.length}`;
+  document.getElementById(`scfill-${uid}`).style.width = (arr.length? done/arr.length*100:0)+'%';
+}
+
+function showStation(id){
+  const s = STATIONS.find(x=>x.id===id);
+  if(!s) return;
+  setActive(id);
+  closeMobileNav();
+  const cat = catMap[s.cat];
+
+  const sectionsHtml = s.sections.map(sec=>`
+    <div class="narr">
+      <span class="sub">${sec.h}</span>
+      ${sec.body}
+      ${diagramHtml(sec.diagram, sec.dcap)}
+    </div>
+  `).join('');
+
+  const idxAll = STATIONS.map(x=>x.id);
+  const pos = idxAll.indexOf(id);
+  const prev = STATIONS[pos-1], next = STATIONS[pos+1];
+
+  main.innerHTML = `
+    <div class="badge-row">
+      <div class="code-badge">課程編號 ${s.code}</div>
+      <div class="dept-tag" style="background:${cat.color}">${s.dept}</div>
+      <div class="level-tag">${s.level}</div>
+    </div>
+    <h2 class="station-title">${s.title}</h2>
+    <div class="station-meta">教學設備：${s.equip}</div>
+    <div class="overview">${s.overview}</div>
+
+    <section class="block">
+      <div class="block-head"><span class="idx">1</span><h3>檢查全貌</h3></div>
+      ${sectionsHtml}
+      ${compareHtml(s.compare)}
+    </section>
+
+    ${pearlsHtml(s.pearls)}
+
+    ${s.examtip?`
+    <section class="block">
+      <div class="block-head"><span class="idx">2</span><h3>練習情境</h3></div>
+      <div class="examtip">${s.examtip}</div>
+    </section>`:''}
+
+    <section class="block">
+      <div class="block-head"><span class="idx">✓</span><h3>自我檢核</h3></div>
+      ${selfcheckHtml(s.id, s.selfcheck)}
+    </section>
+
+    <div class="nav-btns">
+      ${prev?`<button onclick="showStation('${prev.id}')"><span class="lbl">← 上一站</span>${prev.code}　${prev.title}</button>`:'<span></span>'}
+      ${next?`<button onclick="showStation('${next.id}')" style="text-align:right;"><span class="lbl">下一站 →</span>${next.code}　${next.title}</button>`:'<span></span>'}
+    </div>
+  `;
+  window.scrollTo({top:0, behavior:'instant'});
+}
+
+showCover();
+</script>
+</body>
+</html>
